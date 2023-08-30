@@ -1,5 +1,5 @@
 import Store from '../../models/restaurant'
-import sushi from '../../assets/images/sushi.png'
+import sushi from '../../assets/images/sushi.svg'
 
 const List: Store[] = [
   {

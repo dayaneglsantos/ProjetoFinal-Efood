@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    list-style: none;
   }
 
   .container {
@@ -17,7 +18,8 @@ const GlobalStyle = createGlobalStyle`
 export const cores = {
   rosaClaro: '#FFF8F2',
   rosa: '#FFEBD9',
-  rosaEscuro: '#E66767'
+  rosaEscuro: '#E66767',
+  branco: '#fff'
 }
 
 export default GlobalStyle

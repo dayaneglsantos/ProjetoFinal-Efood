@@ -1,4 +1,4 @@
-class Store {
+class RestautantModel {
   id: number
   name: string
   image: string
@@ -26,4 +26,4 @@ class Store {
   }
 }
 
-export default Store
+export default RestautantModel
