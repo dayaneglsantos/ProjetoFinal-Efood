@@ -83,4 +83,8 @@ export const ModalContainer = styled.div`
   p {
     margin: 16px 0;
   }
+
+  ${Button} {
+    width: 218px;
+  }
 `
