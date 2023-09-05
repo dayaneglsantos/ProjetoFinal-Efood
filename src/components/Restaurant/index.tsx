@@ -11,7 +11,7 @@ import {
 import star from '../../assets/images/estrela.svg'
 import Button from '../Button'
 
-type Props = {
+export type Props = {
   name: string
   description: string
   image: string
@@ -27,25 +27,27 @@ const Restaurant = ({
   highlight,
   typeFood,
   avaliation
-}: Props) => (
-  <>
-    <Card>
-      <Infos>
-        {highlight ? <TagContainer>Destaque da semana</TagContainer> : ''}
-        <Tag>{typeFood}</Tag>
-      </Infos>
-      <img src={image} alt={name} />
-      <PlaceInfo>
-        <RestaurantName>{name}</RestaurantName>
-        <div>
-          <Avaliation>{avaliation}</Avaliation>
-          <img src={star} alt="Star" />
-        </div>
-      </PlaceInfo>
-      <Description>{description}</Description>
-      <Button />
-    </Card>
-  </>
-)
+}: Props) => {
+  return (
+    <>
+      <Card>
+        <Infos>
+          {highlight ? <TagContainer>Destaque da semana</TagContainer> : ''}
+          <Tag>{typeFood}</Tag>
+        </Infos>
+        <img src={image} alt={name} />
+        <PlaceInfo>
+          <RestaurantName>{name}</RestaurantName>
+          <div>
+            <Avaliation>{avaliation}</Avaliation>
+            <img src={star} alt="Star" />
+          </div>
+        </PlaceInfo>
+        <Description>{description}</Description>
+        <Button />
+      </Card>
+    </>
+  )
+}
 
 export default Restaurant

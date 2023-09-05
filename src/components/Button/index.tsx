@@ -1,5 +1,7 @@
 import { ButtonContainer } from './styles'
 
-const Button = () => <ButtonContainer>Saiba mais</ButtonContainer>
+const Button = () => {
+  return <ButtonContainer to={'/restaurante'}>Saiba mais</ButtonContainer>
+}
 
 export default Button

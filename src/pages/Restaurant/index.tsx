@@ -7,7 +7,7 @@ import list from './dishesList'
 const RestaurantPage = () => (
   <>
     <HeaderStore />
-    <Presentation restaurant={0} />
+    <Presentation />
     <DishesList dishes={list} />
     <Footer />
   </>

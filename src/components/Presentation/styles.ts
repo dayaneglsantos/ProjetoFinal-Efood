@@ -12,10 +12,19 @@ export const PresentationContainer = styled.div`
   color: ${cores.branco};
   position: relative;
 
-  .black {
+  &::after {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    content: '';
+  }
+
+  .container {
+    z-index: 1;
+    position: relative;
     height: 100%;
   }
 `
