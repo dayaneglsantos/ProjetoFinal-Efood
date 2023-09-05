@@ -18,6 +18,7 @@ export type Props = {
   highlight: boolean
   typeFood: string
   avaliation: string
+  id: number
 }
 
 const Restaurant = ({
@@ -26,7 +27,8 @@ const Restaurant = ({
   image,
   highlight,
   typeFood,
-  avaliation
+  avaliation,
+  id
 }: Props) => {
   return (
     <>
@@ -44,7 +46,7 @@ const Restaurant = ({
           </div>
         </PlaceInfo>
         <Description>{description}</Description>
-        <Button />
+        <Button id={id} />
       </Card>
     </>
   )

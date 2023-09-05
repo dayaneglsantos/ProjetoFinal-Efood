@@ -1,23 +1,32 @@
 import { ContainerList, List } from './styles'
-import DisheModel from '../../models/dishe'
 import Dishe from '../Dishe'
 
+import { RestaurantModel } from '../../pages/Home'
+
 type Props = {
-  dishes: DisheModel[]
+  restaurante: RestaurantModel
 }
 
-const DishesList = ({ dishes }: Props) => (
-  <ContainerList>
-    <div className="container">
-      <List>
-        {dishes.map((item) => (
-          <li key={item.id}>
-            <Dishe name={item.name} description={item.description} />
-          </li>
-        ))}
-      </List>
-    </div>
-  </ContainerList>
-)
+const DishesList = ({ restaurante }: Props) => {
+  return (
+    <ContainerList>
+      <div className="container">
+        <List>
+          {restaurante.cardapio.map((item) => (
+            <li key={item.id}>
+              <Dishe
+                image={item.foto}
+                name={item.nome}
+                description={item.descricao}
+                porcao={item.porcao}
+                price={item.preco}
+              />
+            </li>
+          ))}
+        </List>
+      </div>
+    </ContainerList>
+  )
+}
 
 export default DishesList

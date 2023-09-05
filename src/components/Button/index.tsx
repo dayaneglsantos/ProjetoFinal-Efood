@@ -1,7 +1,11 @@
 import { ButtonContainer } from './styles'
 
-const Button = () => {
-  return <ButtonContainer to={'/restaurante'}>Saiba mais</ButtonContainer>
+type Props = {
+  id: number
+}
+
+const Button = ({ id }: Props) => {
+  return <ButtonContainer to={`/restaurante/${id}`}>Saiba mais</ButtonContainer>
 }
 
 export default Button

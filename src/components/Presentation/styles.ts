@@ -1,9 +1,7 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
-import bgPresentation from '../../assets/images/massa.svg'
 
 export const PresentationContainer = styled.div`
-  background-image: url(${bgPresentation});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

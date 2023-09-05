@@ -1,12 +1,26 @@
 import { PresentationContainer, RestaurantName, TypeFood } from './styles'
 
-const Presentation = () => (
-  <PresentationContainer>
-    <div className="container">
-      <TypeFood>Italiana</TypeFood>
-      <RestaurantName>La Dolce Vita Trattoria</RestaurantName>
-    </div>
-  </PresentationContainer>
-)
+type Restaurant = {
+  tipo: string
+  titulo: string
+  capa: string
+}
+
+type Props = {
+  restaurant: Restaurant
+}
+
+const Presentation = ({ restaurant }: Props) => {
+  return (
+    <PresentationContainer
+      style={{ backgroundImage: `url(${restaurant.capa})` }}
+    >
+      <div className="container">
+        <TypeFood>{restaurant.tipo}</TypeFood>
+        <RestaurantName>{restaurant.titulo}</RestaurantName>
+      </div>
+    </PresentationContainer>
+  )
+}
 
 export default Presentation

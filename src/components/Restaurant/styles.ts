@@ -4,6 +4,12 @@ import { cores } from '../../styles'
 export const Card = styled.div`
   border: 1px solid ${cores.rosaEscuro};
   position: relative;
+
+  > img {
+    height: 217px;
+    width: 472px;
+    object-fit: cover;
+  }
 `
 export const RestaurantName = styled.h2`
   font-size: 18px;
