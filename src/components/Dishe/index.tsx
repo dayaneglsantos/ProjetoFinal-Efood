@@ -7,6 +7,8 @@ import {
   Modal,
   ModalContainer
 } from './styles'
+import { useDispatch } from 'react-redux'
+import { add, open } from '../../Store/Reducers/cart'
 
 type Props = {
   name: string
@@ -14,39 +16,48 @@ type Props = {
   image: string
   porcao: string
   price: number
+  id: number
 }
 
-type ModalState = {
+export type ModalState = {
   img: string
   isVisible: boolean
   description: string
   porcao: string
   name: string
   price: number
+  id: number
 }
 
-const Dishe = ({ description, name, image, porcao, price }: Props) => {
+export const formataPreco = (preco = 0) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
+const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
+  const dispatch = useDispatch()
+
   const [modal, setModal] = useState<ModalState>({
     isVisible: false,
     img: '',
     description: '',
     porcao: '',
     name: '',
-    price: 0
+    price: 0,
+    id: 0
   })
-
-  const formataPreco = (preco = 0) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
-  }
 
   const getDescricao = (descricao: string) => {
     if (descricao.length > 173) {
       return descricao.slice(0, 173) + '...'
     }
     return descricao
+  }
+
+  const addtoCart = () => {
+    dispatch(add(modal))
+    dispatch(open())
   }
 
   return (
@@ -63,7 +74,8 @@ const Dishe = ({ description, name, image, porcao, price }: Props) => {
               img: image,
               porcao: porcao,
               name: name,
-              price: price
+              price: price,
+              id: id
             })
           }
         >
@@ -77,7 +89,9 @@ const Dishe = ({ description, name, image, porcao, price }: Props) => {
             <h2>{name}</h2>
             <p>{description}</p>
             <p>{porcao}</p>
-            <Button>Adicionar ao carrinho - {formataPreco(price)}</Button>
+            <Button onClick={addtoCart}>
+              Adicionar ao carrinho - {formataPreco(price)}
+            </Button>
           </div>
         </ModalContainer>
         <div
@@ -89,7 +103,8 @@ const Dishe = ({ description, name, image, porcao, price }: Props) => {
               description: '',
               porcao: '',
               name: '',
-              price: 0
+              price: 0,
+              id: 0
             })
           }
         ></div>

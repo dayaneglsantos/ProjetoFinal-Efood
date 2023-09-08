@@ -7,7 +7,7 @@ export const Card = styled.div`
 
   > img {
     height: 217px;
-    width: 472px;
+    width: 100%;
     object-fit: cover;
   }
 `

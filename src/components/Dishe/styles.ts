@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const DisheCard = styled.div`
   padding: 8px;
@@ -9,7 +9,7 @@ export const DisheCard = styled.div`
 
   img {
     height: 167px;
-    width: 304px;
+    width: 100%;
   }
 `
 export const DisheName = styled.h3`
@@ -62,11 +62,19 @@ export const ModalContainer = styled.div`
   color: ${cores.rosaClaro};
   font-size: 14px;
 
+  @media (max-width: ${breakpoints.tablet}) {
+    display: block;
+  }
+
   z-index: 1;
   position: relative;
 
   &.container {
     padding: 32px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      padding: 18px;
+    }
   }
 
   img {
@@ -74,14 +82,30 @@ export const ModalContainer = styled.div`
     height: 280px;
     object-fit: cover;
     margin-right: 24px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
   }
 
   h2 {
     font-size: 18px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      font-size: 16px;
+    }
   }
 
   p {
     margin: 16px 0;
+    line-height: 22px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      line-height: 16px;
+      font-size: 12px;
+    }
   }
 
   ${Button} {
