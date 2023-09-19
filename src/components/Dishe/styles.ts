@@ -6,6 +6,9 @@ export const DisheCard = styled.div`
   background-color: ${cores.rosaEscuro};
   color: ${cores.rosa};
   font-size: 14px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   img {
     height: 167px;
@@ -29,6 +32,7 @@ export const Button = styled.button`
   border: none;
   width: 100%;
   cursor: pointer;
+  margin-top: auto;
 `
 
 export const Modal = styled.div`

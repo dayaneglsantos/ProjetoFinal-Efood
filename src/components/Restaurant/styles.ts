@@ -4,8 +4,11 @@ import { cores } from '../../styles'
 export const Card = styled.div`
   border: 1px solid ${cores.rosaEscuro};
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  > img {
+  .restaurantImg {
     height: 217px;
     width: 100%;
     object-fit: cover;
@@ -34,7 +37,7 @@ export const Avaliation = styled(RestaurantName)`
 export const Description = styled.p`
   font-size: 14px;
   line-height: 22px;
-  margin: 0 8px;
+  margin: 0 8px auto;
   color: ${cores.rosaEscuro};
 `
 

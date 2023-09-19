@@ -27,6 +27,7 @@ export type ModalState = {
   name: string
   price: number
   id: number
+  quantity: number
 }
 
 export const formataPreco = (preco = 0) => {
@@ -45,7 +46,8 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
     porcao: '',
     name: '',
     price: 0,
-    id: 0
+    id: 0,
+    quantity: 0
   })
 
   const getDescricao = (descricao: string) => {
@@ -56,6 +58,17 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
   }
 
   const addtoCart = () => {
+    setModal({
+      isVisible: false,
+      img: '',
+      description: '',
+      porcao: '',
+      name: '',
+      price: 0,
+      id: 0,
+      quantity: 0
+    })
+
     dispatch(add(modal))
     dispatch(open())
   }
@@ -63,7 +76,7 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
   return (
     <>
       <DisheCard>
-        <img src={image} alt="Pizza" />
+        <img src={image} alt={name} />
         <DisheName>{name}</DisheName>
         <DisheDescription>{getDescricao(description)}</DisheDescription>
         <Button
@@ -75,7 +88,8 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
               porcao: porcao,
               name: name,
               price: price,
-              id: id
+              id: id,
+              quantity: 1
             })
           }
         >
@@ -89,7 +103,7 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
             <h2>{name}</h2>
             <p>{description}</p>
             <p>{porcao}</p>
-            <Button onClick={addtoCart}>
+            <Button onClick={() => addtoCart()}>
               Adicionar ao carrinho - {formataPreco(price)}
             </Button>
           </div>
@@ -104,7 +118,8 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
               porcao: '',
               name: '',
               price: 0,
-              id: 0
+              id: 0,
+              quantity: 0
             })
           }
         ></div>

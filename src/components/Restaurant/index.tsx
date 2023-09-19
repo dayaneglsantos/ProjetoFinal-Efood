@@ -10,6 +10,7 @@ import {
 } from './styles'
 import star from '../../assets/images/estrela.svg'
 import Button from '../Button'
+import { Link } from 'react-router-dom'
 
 export type Props = {
   name: string
@@ -37,7 +38,9 @@ const Restaurant = ({
           {highlight ? <TagContainer>Destaque da semana</TagContainer> : ''}
           <Tag>{typeFood}</Tag>
         </Infos>
-        <img src={image} alt={name} />
+        <Link to={`/restaurante/${id}`}>
+          <img src={image} alt={name} className="restaurantImg" />
+        </Link>
         <PlaceInfo>
           <RestaurantName>{name}</RestaurantName>
           <div>
@@ -46,7 +49,9 @@ const Restaurant = ({
           </div>
         </PlaceInfo>
         <Description>{description}</Description>
-        <Button id={id} />
+        <div>
+          <Button id={id} />
+        </div>
       </Card>
     </>
   )

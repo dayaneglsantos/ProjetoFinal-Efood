@@ -1,6 +1,16 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 import lixeira from '../../assets/images/lixeira.svg'
+import { Button } from '../Dishe/styles'
+
+type Props = {
+  open: boolean
+}
+
+type InputGroupProps = {
+  display?: string
+  maxWidth?: string
+}
 
 export const CartContainer = styled.div`
   width: 100%;
@@ -24,13 +34,31 @@ export const Overlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
 `
-export const Aside = styled.aside`
+export const Aside = styled.aside<Props>`
+  display: ${(props) => (props.open === true ? 'block' : 'none')};
   background-color: ${cores.rosaEscuro};
   padding: 32px 8px 0;
   max-width: 360px;
   width: 100%;
   z-index: 1;
   color: ${cores.rosa};
+  overflow-y: auto;
+
+  .emptyCart {
+    text-align: center;
+  }
+
+  form {
+    margin-top: 16px;
+
+    > div {
+      margin-bottom: 24px;
+    }
+
+    ${Button} {
+      margin-bottom: 8px;
+    }
+  }
 `
 export const CartItem = styled.div`
   padding: 8px;
@@ -39,6 +67,7 @@ export const CartItem = styled.div`
   color: ${cores.rosaEscuro};
   position: relative;
   margin-bottom: 16px;
+  width: 100%;
 
   img {
     width: 80px;
@@ -50,22 +79,29 @@ export const CartItem = styled.div`
   h3 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-right: 14px;
   }
 
   p {
     font-size: 14px;
   }
 
-  button {
+  > button {
     background-image: url(${lixeira});
     width: 16px;
     height: 16px;
     border: none;
     background-color: transparent;
     position: absolute;
-    bottom: 8px;
+    top: 8px;
     right: 8px;
+  }
+
+  > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 `
 export const TotalPrice = styled.div`
@@ -74,4 +110,67 @@ export const TotalPrice = styled.div`
   margin: 40px 0 16px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+`
+
+export const InputGroup = styled.div<InputGroupProps>`
+  max-width: ${(props) => props.maxWidth || 'auto'};
+  display: ${(props) => props.display || 'block'};
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex: auto;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  input {
+    height: 32px;
+    background-color: ${cores.rosa};
+    border: none;
+    width: 100%;
+    padding: 0 8px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.error {
+      border: 2px solid #dc0000;
+    }
+  }
+`
+export const Title = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+`
+
+export const P = styled.p`
+  line-height: 22px;
+  font-size: 14px;
+  margin: 16px 0;
+`
+
+export const NumberDishe = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    font-size: 14px;
+  }
+
+  button {
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: bold;
+    color: ${cores.rosaEscuro};
+    border: none;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+  }
 `

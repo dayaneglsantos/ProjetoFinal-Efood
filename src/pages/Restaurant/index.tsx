@@ -4,6 +4,7 @@ import Footer from '../../components/Footer'
 import HeaderStore from '../../components/HeaderStore'
 import Presentation from '../../components/Presentation'
 import { useGetRestaurantQuery } from '../../Services/api'
+import Loader from '../../components/Loader'
 
 const RestaurantPage = () => {
   const { id } = useParams()
@@ -11,7 +12,7 @@ const RestaurantPage = () => {
   const { data: restaurant } = useGetRestaurantQuery(id!)
 
   if (!restaurant) {
-    return <h3>Carregando...</h3>
+    return <Loader />
   }
 
   return (

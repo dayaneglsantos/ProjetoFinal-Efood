@@ -10,8 +10,11 @@ export const HeaderContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 `
-export const Text = styled.h3`
+export const SectionTitle = styled.span`
   font-size: 18px;
   font-weight: bold;
   color: ${cores.rosaEscuro};
+`
+export const CartItems = styled(SectionTitle)`
+  cursor: pointer;
 `
