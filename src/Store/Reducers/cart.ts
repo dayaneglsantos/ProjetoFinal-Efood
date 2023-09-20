@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { ModalState } from '../../components/Dishe'
-
 type CartState = {
   items: ModalState[]
   isOpen: boolean

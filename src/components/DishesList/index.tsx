@@ -1,7 +1,5 @@
-import { ContainerList, List } from './styles'
 import Dishe from '../Dishe'
-
-import { RestaurantModel } from '../../pages/Home'
+import * as S from './styles'
 
 type Props = {
   restaurante: RestaurantModel
@@ -9,24 +7,24 @@ type Props = {
 
 const DishesList = ({ restaurante }: Props) => {
   return (
-    <ContainerList>
+    <S.ContainerList>
       <div className="container">
-        <List>
-          {restaurante.cardapio.map((item) => (
+        <S.List>
+          {restaurante.menu.map((item) => (
             <li key={item.id}>
               <Dishe
                 id={item.id}
-                image={item.foto}
-                name={item.nome}
-                description={item.descricao}
-                porcao={item.porcao}
-                price={item.preco}
+                img={item.img}
+                name={item.name}
+                description={item.description}
+                portion={item.portion}
+                price={item.price}
               />
             </li>
           ))}
-        </List>
+        </S.List>
       </div>
-    </ContainerList>
+    </S.ContainerList>
   )
 }
 

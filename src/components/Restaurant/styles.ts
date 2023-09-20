@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const Card = styled.div`
-  border: 1px solid ${cores.rosaEscuro};
+  border: 1px solid ${colors.darkPink};
   position: relative;
   height: 100%;
   display: flex;
@@ -17,7 +17,7 @@ export const Card = styled.div`
 export const RestaurantName = styled.h2`
   font-size: 18px;
   font-weight: bold;
-  color: ${cores.rosaEscuro};
+  color: ${colors.darkPink};
 `
 
 export const PlaceInfo = styled.div`
@@ -38,7 +38,7 @@ export const Description = styled.p`
   font-size: 14px;
   line-height: 22px;
   margin: 0 8px auto;
-  color: ${cores.rosaEscuro};
+  color: ${colors.darkPink};
 `
 
 export const Infos = styled.div`

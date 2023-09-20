@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const PresentationContainer = styled.div`
   background-repeat: no-repeat;
@@ -7,7 +7,7 @@ export const PresentationContainer = styled.div`
   background-position: center;
   height: 280px;
   font-size: 32px;
-  color: ${cores.branco};
+  color: ${colors.white};
   position: relative;
 
   &::after {

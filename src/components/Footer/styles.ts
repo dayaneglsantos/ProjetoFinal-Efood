@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const FooterContainer = styled.footer`
   padding: 40px 0;
-  background-color: ${cores.rosaClaro};
+  background-color: ${colors.lightPink};
   justify-content: center;
   text-align: center;
 
@@ -17,7 +17,7 @@ export const SocialMedia = styled.img`
 `
 export const FooterText = styled.p`
   font-size: 10px;
-  color: ${cores.rosaEscuro};
+  color: ${colors.darkPink};
   max-width: 480px;
   text-align: center;
   margin: 0 auto;

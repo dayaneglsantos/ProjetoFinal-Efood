@@ -1,16 +1,11 @@
-import Tag from '../Tag'
-import { TagContainer } from '../Tag/styles'
-import {
-  Avaliation,
-  Card,
-  Description,
-  Infos,
-  PlaceInfo,
-  RestaurantName
-} from './styles'
-import star from '../../assets/images/estrela.svg'
-import Button from '../Button'
 import { Link } from 'react-router-dom'
+
+import Tag from '../Tag'
+import Button from '../Button'
+
+import star from '../../assets/images/estrela.svg'
+import { TagContainer } from '../Tag/styles'
+import * as S from './styles'
 
 export type Props = {
   name: string
@@ -33,26 +28,26 @@ const Restaurant = ({
 }: Props) => {
   return (
     <>
-      <Card>
-        <Infos>
+      <S.Card>
+        <S.Infos>
           {highlight ? <TagContainer>Destaque da semana</TagContainer> : ''}
           <Tag>{typeFood}</Tag>
-        </Infos>
+        </S.Infos>
         <Link to={`/restaurante/${id}`}>
           <img src={image} alt={name} className="restaurantImg" />
         </Link>
-        <PlaceInfo>
-          <RestaurantName>{name}</RestaurantName>
+        <S.PlaceInfo>
+          <S.RestaurantName>{name}</S.RestaurantName>
           <div>
-            <Avaliation>{avaliation}</Avaliation>
+            <S.Avaliation>{avaliation}</S.Avaliation>
             <img src={star} alt="Star" />
           </div>
-        </PlaceInfo>
-        <Description>{description}</Description>
+        </S.PlaceInfo>
+        <S.Description>{description}</S.Description>
         <div>
           <Button id={id} />
         </div>
-      </Card>
+      </S.Card>
     </>
   )
 }

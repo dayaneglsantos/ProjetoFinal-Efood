@@ -1,9 +1,12 @@
-import * as S from './styles'
-import logo from '../../assets/images/logo.svg'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { FaShoppingCart } from 'react-icons/fa'
+
 import { RootReducer } from '../../Store'
 import { open } from '../../Store/Reducers/cart'
+
+import logo from '../../assets/images/logo.svg'
+import * as S from './styles'
 
 const HeaderStore = () => {
   const dispatch = useDispatch()
@@ -17,6 +20,9 @@ const HeaderStore = () => {
       <S.CartItems role="button" onClick={() => dispatch(open())}>
         {items.length} produto(s) no carrinho
       </S.CartItems>
+      <S.SmallCartItens role="button" onClick={() => dispatch(open())}>
+        {items.length} <FaShoppingCart className="icon" />
+      </S.SmallCartItens>
     </S.HeaderContainer>
   )
 }

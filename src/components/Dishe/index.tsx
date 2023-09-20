@@ -1,49 +1,28 @@
 import { useState } from 'react'
-import {
-  Button,
-  DisheCard,
-  DisheDescription,
-  DisheName,
-  Modal,
-  ModalContainer
-} from './styles'
 import { useDispatch } from 'react-redux'
+
 import { add, open } from '../../Store/Reducers/cart'
+import { parseToBrl } from '../../Utils'
+
+import * as S from './styles'
 
 type Props = {
   name: string
   description: string
-  image: string
-  porcao: string
-  price: number
-  id: number
-}
-
-export type ModalState = {
   img: string
-  isVisible: boolean
-  description: string
-  porcao: string
-  name: string
+  portion: string
   price: number
   id: number
-  quantity: number
 }
 
-export const formataPreco = (preco = 0) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
-}
-const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
+const Dishe = ({ description, name, img, portion, price, id }: Props) => {
   const dispatch = useDispatch()
 
   const [modal, setModal] = useState<ModalState>({
     isVisible: false,
     img: '',
     description: '',
-    porcao: '',
+    portion: '',
     name: '',
     price: 0,
     id: 0,
@@ -62,7 +41,7 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
       isVisible: false,
       img: '',
       description: '',
-      porcao: '',
+      portion: '',
       name: '',
       price: 0,
       id: 0,
@@ -75,17 +54,32 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
 
   return (
     <>
-      <DisheCard>
-        <img src={image} alt={name} />
-        <DisheName>{name}</DisheName>
-        <DisheDescription>{getDescricao(description)}</DisheDescription>
-        <Button
+      <S.DisheCard>
+        <img
+          src={img}
+          alt={name}
           onClick={() =>
             setModal({
               isVisible: true,
               description: description,
-              img: image,
-              porcao: porcao,
+              img: img,
+              portion: portion,
+              name: name,
+              price: price,
+              id: id,
+              quantity: 1
+            })
+          }
+        />
+        <S.DisheName>{name}</S.DisheName>
+        <S.DisheDescription>{getDescricao(description)}</S.DisheDescription>
+        <S.Button
+          onClick={() =>
+            setModal({
+              isVisible: true,
+              description: description,
+              img: img,
+              portion: portion,
               name: name,
               price: price,
               id: id,
@@ -94,20 +88,20 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
           }
         >
           Adicionar ao carrinho
-        </Button>
-      </DisheCard>
-      <Modal className={modal.isVisible ? 'visible' : ''}>
-        <ModalContainer className="container">
+        </S.Button>
+      </S.DisheCard>
+      <S.Modal className={modal.isVisible ? 'visible' : ''}>
+        <S.ModalContainer className="container">
           <img src={modal.img} alt={name} />
           <div>
             <h2>{name}</h2>
             <p>{description}</p>
-            <p>{porcao}</p>
-            <Button onClick={() => addtoCart()}>
-              Adicionar ao carrinho - {formataPreco(price)}
-            </Button>
+            <p>{portion}</p>
+            <S.Button onClick={() => addtoCart()}>
+              Adicionar ao carrinho - {parseToBrl(price)}
+            </S.Button>
           </div>
-        </ModalContainer>
+        </S.ModalContainer>
         <div
           className="overlay"
           onClick={() =>
@@ -115,7 +109,7 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
               isVisible: false,
               img: '',
               description: '',
-              porcao: '',
+              portion: '',
               name: '',
               price: 0,
               id: 0,
@@ -123,7 +117,7 @@ const Dishe = ({ description, name, image, porcao, price, id }: Props) => {
             })
           }
         ></div>
-      </Modal>
+      </S.Modal>
     </>
   )
 }

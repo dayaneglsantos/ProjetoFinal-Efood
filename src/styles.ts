@@ -24,12 +24,17 @@ const GlobalStyle = createGlobalStyle`
       width: 80%;
     }
   }
+
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+}
 `
-export const cores = {
-  rosaClaro: '#FFF8F2',
-  rosa: '#FFEBD9',
-  rosaEscuro: '#E66767',
-  branco: '#fff'
+export const colors = {
+  lightPink: '#FFF8F2',
+  pink: '#FFEBD9',
+  darkPink: '#E66767',
+  white: '#fff'
 }
 
 export default GlobalStyle

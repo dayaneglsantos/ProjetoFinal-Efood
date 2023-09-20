@@ -1,9 +1,9 @@
-import { PresentationContainer, RestaurantName, TypeFood } from './styles'
+import * as S from './styles'
 
 type Restaurant = {
-  tipo: string
-  titulo: string
-  capa: string
+  type: string
+  title: string
+  cover: string
 }
 
 type Props = {
@@ -12,14 +12,14 @@ type Props = {
 
 const Presentation = ({ restaurant }: Props) => {
   return (
-    <PresentationContainer
-      style={{ backgroundImage: `url(${restaurant.capa})` }}
+    <S.PresentationContainer
+      style={{ backgroundImage: `url(${restaurant.cover})` }}
     >
       <div className="container">
-        <TypeFood>{restaurant.tipo}</TypeFood>
-        <RestaurantName>{restaurant.titulo}</RestaurantName>
+        <S.TypeFood>{restaurant.type}</S.TypeFood>
+        <S.RestaurantName>{restaurant.title}</S.RestaurantName>
       </div>
-    </PresentationContainer>
+    </S.PresentationContainer>
   )
 }
 

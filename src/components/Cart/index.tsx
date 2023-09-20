@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import InputMask from 'react-input-mask'
 
-import { Button } from '../Dishe/styles'
+import { usePurchaseMutation } from '../../Services/api'
 import { add, clear, close, remove, subtract } from '../../Store/Reducers/cart'
 import { RootReducer } from '../../Store'
-import { ModalState, formataPreco } from '../Dishe'
 
-import { usePurchaseMutation } from '../../Services/api'
-
+import { Button } from '../Dishe/styles'
 import * as S from './styles'
+import { parseToBrl, totalPrice } from '../../Utils'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -21,6 +20,7 @@ const Cart = () => {
   const [paymentOpen, setPaymentOpen] = useState(false)
   const [successOpen, setSuccessOpen] = useState(false)
   const [purchase, { data, isSuccess }] = usePurchaseMutation()
+  const [deliveryCompleted, setDeliveryCompleted] = useState(false)
 
   const form = useFormik({
     initialValues: {
@@ -49,10 +49,10 @@ const Cart = () => {
       zipCode: Yup.string()
         .min(9, 'Mínimo 9 caracteres')
         .required('Campo obrigatório'),
-      number: Yup.number()
-        .required('Campo obrigatório')
+      number: Yup.string()
         .min(2, 'Mínimo 2 caracteres')
-        .max(4, 'Máximo 4 caracteres'),
+        .max(4, 'Máximo 4 caracteres')
+        .required('Campo obrigatório'),
       complement: Yup.string(),
       displayName: Yup.string()
         .min(5, 'Mínimo 5 caracteres')
@@ -98,18 +98,20 @@ const Cart = () => {
     dispatch(close())
   }
 
-  const totalPrice = () => {
-    return items.reduce((ac, item) => {
-      return (ac += item.price * item.quantity)
-    }, 0)
-  }
-
   const checkErrorInput = (field: string) => {
     const invalid = field in form.errors
     const touched = field in form.touched
     const hasError = invalid && touched
 
     return hasError
+  }
+
+  const handleInputNumber = (e: ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value.replace(/[^\d]/g, '').slice(0, 4)
+
+    form.handleChange({
+      target: { id: 'number', name: 'number', value: newValue }
+    })
   }
 
   const removeItem = (id: number) => {
@@ -135,11 +137,16 @@ const Cart = () => {
       'number' in form.errors
     ) {
       return
-    } else {
+    }
+    setDeliveryCompleted(true)
+  }
+
+  useEffect(() => {
+    if (deliveryCompleted) {
       setPaymentOpen(true)
       setDeliveryOpen(false)
     }
-  }
+  }, [deliveryCompleted])
 
   const backToDelivery = () => {
     setPaymentOpen(false)
@@ -176,7 +183,7 @@ const Cart = () => {
                 <div>
                   <h3>{item.name}</h3>
                   <S.NumberDishe>
-                    <p>{formataPreco(item.price)}</p>
+                    <p>{parseToBrl(item.price)}</p>
                     <div>
                       <button onClick={() => subtractItem(item.id)}>-</button>
                       <span>{item.quantity}</span>
@@ -186,7 +193,7 @@ const Cart = () => {
                             isVisible: true,
                             description: item.description,
                             img: item.img,
-                            porcao: item.porcao,
+                            portion: item.portion,
                             name: item.name,
                             price: item.price,
                             id: item.id,
@@ -204,7 +211,7 @@ const Cart = () => {
             ))}
             <S.TotalPrice>
               <p>Valor Total:</p>
-              <span>R$ {formataPreco(totalPrice())}</span>
+              <span>R$ {parseToBrl(totalPrice(items))}</span>
             </S.TotalPrice>
             <Button onClick={goToDelivery}>Continuar com a entrega</Button>
           </>
@@ -251,7 +258,7 @@ const Cart = () => {
               />
             </S.InputGroup>
             <S.InputGroup display="flex">
-              <S.InputGroup>
+              <S.InputGroup maxWidth="155px">
                 <label htmlFor="zipCode">CEP</label>
                 <InputMask
                   type="text"
@@ -264,14 +271,14 @@ const Cart = () => {
                   className={checkErrorInput('zipCode') ? 'error' : ''}
                 />
               </S.InputGroup>
-              <S.InputGroup>
+              <S.InputGroup maxWidth="155px">
                 <label htmlFor="number">Número</label>
                 <input
-                  type="string"
+                  type="number"
                   id="number"
                   name="number"
                   value={form.values.number}
-                  onChange={form.handleChange}
+                  onChange={handleInputNumber}
                   onBlur={form.handleBlur}
                   className={checkErrorInput('number') ? 'error' : ''}
                 />
@@ -296,7 +303,7 @@ const Cart = () => {
       </S.Aside>
       <S.Aside open={paymentOpen}>
         <S.Title>
-          Pagamento - Valor a pagar {formataPreco(totalPrice())}
+          Pagamento - Valor a pagar {parseToBrl(totalPrice(items))}
         </S.Title>
         <form onSubmit={form.handleSubmit}>
           <div>
@@ -340,31 +347,33 @@ const Cart = () => {
                 />
               </S.InputGroup>
             </S.InputGroup>
-            <S.InputGroup>
-              <label htmlFor="expiresMonth">Mês de vencimento</label>
-              <InputMask
-                type="text"
-                id="expiresMonth"
-                name="expiresMonth"
-                value={form.values.expiresMonth}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                mask="99"
-                className={checkErrorInput('expiresMonth') ? 'error' : ''}
-              />
-            </S.InputGroup>
-            <S.InputGroup>
-              <label htmlFor="expiresYear">Ano de vencimento</label>
-              <InputMask
-                type="text"
-                id="expiresYear"
-                name="expiresYear"
-                value={form.values.expiresYear}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                mask="99"
-                className={checkErrorInput('expiresYear') ? 'error' : ''}
-              />
+            <S.InputGroup display="flex">
+              <S.InputGroup maxWidth="155px">
+                <label htmlFor="expiresMonth">Mês de vencimento</label>
+                <InputMask
+                  type="text"
+                  id="expiresMonth"
+                  name="expiresMonth"
+                  value={form.values.expiresMonth}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  mask="99"
+                  className={checkErrorInput('expiresMonth') ? 'error' : ''}
+                />
+              </S.InputGroup>
+              <S.InputGroup maxWidth="155px">
+                <label htmlFor="expiresYear">Ano de vencimento</label>
+                <InputMask
+                  type="text"
+                  id="expiresYear"
+                  name="expiresYear"
+                  value={form.values.expiresYear}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  mask="99"
+                  className={checkErrorInput('expiresYear') ? 'error' : ''}
+                />
+              </S.InputGroup>
             </S.InputGroup>
           </div>
           <Button type="submit" onClick={() => form.handleSubmit}>

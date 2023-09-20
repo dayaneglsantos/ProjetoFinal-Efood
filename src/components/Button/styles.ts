@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
 import { Link } from 'react-router-dom'
 
+import { colors } from '../../styles'
+
 export const ButtonContainer = styled(Link)`
-  background-color: ${cores.rosaEscuro};
-  color: ${cores.rosa};
+  background-color: ${colors.darkPink};
+  color: ${colors.pink};
   padding: 6px 4px;
   font-size: 14px;
   font-weight: bold;

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const DisheCard = styled.div`
   padding: 8px;
-  background-color: ${cores.rosaEscuro};
-  color: ${cores.rosa};
+  background-color: ${colors.darkPink};
+  color: ${colors.pink};
   font-size: 14px;
   height: 100%;
   display: flex;
@@ -13,6 +13,7 @@ export const DisheCard = styled.div`
   img {
     height: 167px;
     width: 100%;
+    cursor: pointer;
   }
 `
 export const DisheName = styled.h3`
@@ -26,8 +27,8 @@ export const DisheDescription = styled.p`
 `
 export const Button = styled.button`
   padding: 4px;
-  background-color: ${cores.rosa};
-  color: ${cores.rosaEscuro};
+  background-color: ${colors.pink};
+  color: ${colors.darkPink};
   font-weight: bold;
   border: none;
   width: 100%;
@@ -60,10 +61,10 @@ export const Modal = styled.div`
   }
 `
 export const ModalContainer = styled.div`
-  background-color: ${cores.rosaEscuro};
+  background-color: ${colors.darkPink};
   height: 344px;
   display: flex;
-  color: ${cores.rosaClaro};
+  color: ${colors.lightPink};
   font-size: 14px;
 
   @media (max-width: ${breakpoints.tablet}) {

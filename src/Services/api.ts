@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RestaurantModel } from '../pages/Home'
 
 type Product = {
   id: number

@@ -1,14 +1,15 @@
-import { Cabecalho, Logo, Title } from './styles'
-import logo from '../../assets/images/logo.svg'
 import { Link } from 'react-router-dom'
 
+import logo from '../../assets/images/logo.svg'
+import * as S from './styles'
+
 const Header = () => (
-  <Cabecalho>
+  <S.HeaderConteiner>
     <Link to={'/'}>
-      <Logo src={logo} alt="logo" />
+      <S.Logo src={logo} alt="logo" />
     </Link>
-    <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
-  </Cabecalho>
+    <S.Title>Viva experiências gastronômicas no conforto da sua casa</S.Title>
+  </S.HeaderConteiner>
 )
 
 export default Header

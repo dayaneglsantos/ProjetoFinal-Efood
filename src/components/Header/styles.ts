@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import fundo from '../../assets/images/bgHeader.svg'
-import { cores } from '../../styles'
 
-export const Cabecalho = styled.header`
-  background-image: url(${fundo});
+import backgroundImg from '../../assets/images/bgHeader.svg'
+import { colors } from '../../styles'
+
+export const HeaderConteiner = styled.header`
+  background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
   height: 380px;
@@ -19,7 +20,7 @@ export const Title = styled.h1`
   font-size: 36px;
   font-weight: bold;
   line-height: 42px;
-  color: ${cores.rosaEscuro};
+  color: ${colors.darkPink};
   max-width: 540px;
   text-align: center;
   margin: 138px auto 0;

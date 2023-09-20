@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
-import lixeira from '../../assets/images/lixeira.svg'
+
+import { colors } from '../../styles'
+import trash from '../../assets/images/lixeira.svg'
 import { Button } from '../Dishe/styles'
 
 type Props = {
@@ -36,12 +37,12 @@ export const Overlay = styled.div`
 `
 export const Aside = styled.aside<Props>`
   display: ${(props) => (props.open === true ? 'block' : 'none')};
-  background-color: ${cores.rosaEscuro};
-  padding: 32px 8px 0;
+  background-color: ${colors.darkPink};
+  padding: 32px 8px;
   max-width: 360px;
   width: 100%;
   z-index: 1;
-  color: ${cores.rosa};
+  color: ${colors.pink};
   overflow-y: auto;
 
   .emptyCart {
@@ -62,9 +63,9 @@ export const Aside = styled.aside<Props>`
 `
 export const CartItem = styled.div`
   padding: 8px;
-  background-color: ${cores.rosa};
+  background-color: ${colors.pink};
   display: flex;
-  color: ${cores.rosaEscuro};
+  color: ${colors.darkPink};
   position: relative;
   margin-bottom: 16px;
   width: 100%;
@@ -87,7 +88,7 @@ export const CartItem = styled.div`
   }
 
   > button {
-    background-image: url(${lixeira});
+    background-image: url(${trash});
     width: 16px;
     height: 16px;
     border: none;
@@ -129,7 +130,7 @@ export const InputGroup = styled.div<InputGroupProps>`
 
   input {
     height: 32px;
-    background-color: ${cores.rosa};
+    background-color: ${colors.pink};
     border: none;
     width: 100%;
     padding: 0 8px;
@@ -167,7 +168,7 @@ export const NumberDishe = styled.div`
     background-color: transparent;
     font-size: 16px;
     font-weight: bold;
-    color: ${cores.rosaEscuro};
+    color: ${colors.darkPink};
     border: none;
     height: 16px;
     width: 16px;
