@@ -139,14 +139,12 @@ const Cart = () => {
       return
     }
     setDeliveryCompleted(true)
-  }
 
-  useEffect(() => {
     if (deliveryCompleted) {
       setPaymentOpen(true)
       setDeliveryOpen(false)
     }
-  }, [deliveryCompleted])
+  }
 
   const backToDelivery = () => {
     setPaymentOpen(false)

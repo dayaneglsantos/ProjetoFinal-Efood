@@ -15,13 +15,13 @@ const RestaurantsList = ({ restaurants }: Props) => {
             <li key={item.id}>
               <Restaurant
                 id={item.id}
-                highlight={item.highlight}
-                typeFood={item.type}
+                highlight={item.destacado}
+                typeFood={item.tipo}
                 key={item.id}
-                name={item.title}
-                description={item.description}
-                image={item.cover}
-                avaliation={item.avaliation}
+                name={item.titulo}
+                description={item.descricao}
+                image={item.capa}
+                avaliation={item.avaliacao}
               />
             </li>
           ))}

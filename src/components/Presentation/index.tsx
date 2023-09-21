@@ -1,9 +1,9 @@
 import * as S from './styles'
 
 type Restaurant = {
-  type: string
-  title: string
-  cover: string
+  tipo: string
+  titulo: string
+  capa: string
 }
 
 type Props = {
@@ -13,11 +13,11 @@ type Props = {
 const Presentation = ({ restaurant }: Props) => {
   return (
     <S.PresentationContainer
-      style={{ backgroundImage: `url(${restaurant.cover})` }}
+      style={{ backgroundImage: `url(${restaurant.capa})` }}
     >
       <div className="container">
-        <S.TypeFood>{restaurant.type}</S.TypeFood>
-        <S.RestaurantName>{restaurant.title}</S.RestaurantName>
+        <S.TypeFood>{restaurant.tipo}</S.TypeFood>
+        <S.RestaurantName>{restaurant.titulo}</S.RestaurantName>
       </div>
     </S.PresentationContainer>
   )

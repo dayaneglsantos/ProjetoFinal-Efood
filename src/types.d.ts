@@ -1,19 +1,19 @@
 declare type RestaurantModel = {
   id: number
-  title: string
-  highlight: boolean
-  type: string
-  avaliation: string
-  description: string
-  cover: string
-  menu: [
+  titulo: string
+  destacado: boolean
+  tipo: string
+  avaliacao: string
+  descricao: string
+  capa: string
+  cardapio: [
     {
       id: number
-      img: string
-      description: string
-      price: number
-      name: string
-      portion: string
+      foto: string
+      descricao: string
+      preco: number
+      nome: string
+      porcao: string
     }
   ]
 }

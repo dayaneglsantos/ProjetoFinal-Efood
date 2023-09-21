@@ -14,6 +14,7 @@ export const DisheCard = styled.div`
     height: 167px;
     width: 100%;
     cursor: pointer;
+    object-fit: cover;
   }
 `
 export const DisheName = styled.h3`
@@ -66,13 +67,12 @@ export const ModalContainer = styled.div`
   display: flex;
   color: ${colors.lightPink};
   font-size: 14px;
+  z-index: 1;
+  position: relative;
 
   @media (max-width: ${breakpoints.tablet}) {
     display: block;
   }
-
-  z-index: 1;
-  position: relative;
 
   &.container {
     padding: 32px;
@@ -90,7 +90,7 @@ export const ModalContainer = styled.div`
 
     @media (max-width: ${breakpoints.tablet}) {
       width: 100%;
-      height: 100px;
+      height: 130px;
       object-fit: cover;
     }
   }

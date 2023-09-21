@@ -10,15 +10,15 @@ const DishesList = ({ restaurante }: Props) => {
     <S.ContainerList>
       <div className="container">
         <S.List>
-          {restaurante.menu.map((item) => (
+          {restaurante.cardapio.map((item) => (
             <li key={item.id}>
               <Dishe
                 id={item.id}
-                img={item.img}
-                name={item.name}
-                description={item.description}
-                portion={item.portion}
-                price={item.price}
+                img={item.foto}
+                name={item.nome}
+                description={item.descricao}
+                portion={item.porcao}
+                price={item.preco}
               />
             </li>
           ))}

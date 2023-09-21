@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useGetRestaurantQuery } from '../../Services/api'
 
 import DishesList from '../../components/DishesList'
-import Footer from '../../components/Footer'
 import HeaderStore from '../../components/HeaderStore'
 import Presentation from '../../components/Presentation'
+import Footer from '../../components/Footer'
 import Loader from '../../components/Loader'
 
 type restaurantParams = {

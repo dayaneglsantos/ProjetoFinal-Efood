@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { breakpoints } from '../../styles'
 
 export const ContainerList = styled.div`
-  .container {
-    padding-top: 56px;
+  > div {
+    padding-top: 52px;
   }
 `
 
