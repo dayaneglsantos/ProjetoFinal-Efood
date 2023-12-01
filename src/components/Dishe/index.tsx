@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { add, open } from '../../Store/Reducers/cart'
+import {
+  add,
+  open,
+  openItems,
+  closeDelivery,
+  closePayment
+} from '../../Store/Reducers/cart'
 import { parseToBrl } from '../../Utils'
 
 import * as S from './styles'
@@ -37,6 +43,11 @@ const Dishe = ({ description, name, img, portion, price, id }: Props) => {
   }
 
   const addtoCart = () => {
+    dispatch(add(modal))
+    dispatch(open())
+    dispatch(openItems())
+    dispatch(closeDelivery())
+    dispatch(closePayment())
     setModal({
       isVisible: false,
       img: '',
@@ -47,9 +58,6 @@ const Dishe = ({ description, name, img, portion, price, id }: Props) => {
       id: 0,
       quantity: 0
     })
-
-    dispatch(add(modal))
-    dispatch(open())
   }
 
   return (

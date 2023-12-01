@@ -6,7 +6,6 @@ import { breakpoints, colors } from '../../styles'
 export const HeaderContainer = styled.div`
   height: 186px;
   background-image: url(${backgroundImg});
-  background-repeat: no-repeat;
   display: flex;
   justify-content: space-around;
   align-items: center;

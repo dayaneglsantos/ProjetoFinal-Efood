@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import InputMask from 'react-input-mask'
 
 import { usePurchaseMutation } from '../../Services/api'
-import { add, clear, close, remove, subtract } from '../../Store/Reducers/cart'
+import * as reducer from '../../Store/Reducers/cart'
 import { RootReducer } from '../../Store'
 
 import { Button } from '../Dishe/styles'
@@ -14,11 +14,14 @@ import { parseToBrl, totalPrice } from '../../Utils'
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
-  const [cartOpen, setCartOpen] = useState(true)
-  const [deliveryOpen, setDeliveryOpen] = useState(false)
-  const [paymentOpen, setPaymentOpen] = useState(false)
-  const [successOpen, setSuccessOpen] = useState(false)
+  const {
+    isOpen,
+    items,
+    itemsStage,
+    deliveryState,
+    paymantState,
+    successState
+  } = useSelector((state: RootReducer) => state.cart)
   const [purchase, { data, isSuccess }] = usePurchaseMutation()
   const [deliveryCompleted, setDeliveryCompleted] = useState(false)
 
@@ -95,7 +98,7 @@ const Cart = () => {
   })
 
   const closeCart = () => {
-    dispatch(close())
+    dispatch(reducer.close())
   }
 
   const checkErrorInput = (field: string) => {
@@ -115,17 +118,12 @@ const Cart = () => {
   }
 
   const removeItem = (id: number) => {
-    dispatch(remove(id))
+    dispatch(reducer.remove(id))
   }
 
   const goToDelivery = () => {
-    setDeliveryOpen(true)
-    setCartOpen(false)
-  }
-
-  const backToCart = () => {
-    setDeliveryOpen(false)
-    setCartOpen(true)
+    dispatch(reducer.openDelivery())
+    dispatch(reducer.closeItems())
   }
 
   const goToPayment = () => {
@@ -141,36 +139,42 @@ const Cart = () => {
     setDeliveryCompleted(true)
 
     if (deliveryCompleted) {
-      setPaymentOpen(true)
-      setDeliveryOpen(false)
+      dispatch(reducer.openPayment())
+      dispatch(reducer.closeDelivery())
     }
   }
 
   const backToDelivery = () => {
-    setPaymentOpen(false)
-    setDeliveryOpen(true)
+    dispatch(reducer.closePayment())
+    dispatch(reducer.openDelivery())
+    dispatch(reducer.closeItems())
+  }
+
+  const backToCart = () => {
+    dispatch(reducer.openItems())
+    dispatch(reducer.closeDelivery())
   }
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(clear())
-      setPaymentOpen(false)
-      setSuccessOpen(true)
+      dispatch(reducer.clear())
+      dispatch(reducer.closePayment())
+      dispatch(reducer.openSuccess())
     }
   }, [isSuccess, dispatch])
 
   const sumItem = (item: ModalState) => {
-    dispatch(add(item))
+    dispatch(reducer.add(item))
   }
 
   const subtractItem = (id: number) => {
-    dispatch(subtract(id))
+    dispatch(reducer.subtract(id))
   }
 
   return (
     <S.CartContainer className={isOpen ? 'open' : ''}>
       <S.Overlay onClick={closeCart} />
-      <S.Aside open={cartOpen}>
+      <S.Aside open={itemsStage}>
         {items.length === 0 ? (
           <p className="emptyCart">Não há itens no carrinho</p>
         ) : (
@@ -215,7 +219,7 @@ const Cart = () => {
           </>
         )}
       </S.Aside>
-      <S.Aside open={deliveryOpen}>
+      <S.Aside open={deliveryState}>
         <S.Title>Entrega</S.Title>
         <form onSubmit={form.handleSubmit}>
           <div>
@@ -299,7 +303,7 @@ const Cart = () => {
           <Button onClick={backToCart}>Voltar para o carrinho</Button>
         </form>
       </S.Aside>
-      <S.Aside open={paymentOpen}>
+      <S.Aside open={paymantState}>
         <S.Title>
           Pagamento - Valor a pagar {parseToBrl(totalPrice(items))}
         </S.Title>
@@ -382,7 +386,7 @@ const Cart = () => {
           </Button>
         </form>
       </S.Aside>
-      <S.Aside open={successOpen}>
+      <S.Aside open={successState}>
         <S.Title>Pedido realizado - {data?.orderId}</S.Title>
         <S.P>
           Estamos felizes em informar que seu pedido já está em processo de
@@ -400,7 +404,7 @@ const Cart = () => {
           Esperamos que desfrute de uma deliciosa e agradável experiência
           gastronômica. Bom apetite!
         </S.P>
-        <Button onClick={() => dispatch(close())}>Concluir</Button>
+        <Button onClick={() => dispatch(reducer.close())}>Concluir</Button>
       </S.Aside>
     </S.CartContainer>
   )
