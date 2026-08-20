@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -22,8 +22,7 @@ const Cart = () => {
     paymantState,
     successState
   } = useSelector((state: RootReducer) => state.cart)
-  const [purchase, { data, isSuccess }] = usePurchaseMutation()
-  const [deliveryCompleted, setDeliveryCompleted] = useState(false)
+  const [purchase, { data, isSuccess, reset }] = usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {
@@ -97,10 +96,6 @@ const Cart = () => {
     }
   })
 
-  const closeCart = () => {
-    dispatch(reducer.close())
-  }
-
   const checkErrorInput = (field: string) => {
     const invalid = field in form.errors
     const touched = field in form.touched
@@ -126,22 +121,29 @@ const Cart = () => {
     dispatch(reducer.closeItems())
   }
 
-  const goToPayment = () => {
+  const goToPayment = async () => {
+    await form.setTouched({
+      receiver: true,
+      address: true,
+      city: true,
+      zipCode: true,
+      number: true
+    })
+
+    const errors = await form.validateForm()
+
     if (
-      'receiver' in form.errors ||
-      'address' in form.errors ||
-      'city' in form.errors ||
-      'zipCode' in form.errors ||
-      'number' in form.errors
+      errors.receiver ||
+      errors.address ||
+      errors.city ||
+      errors.zipCode ||
+      errors.number
     ) {
       return
     }
-    setDeliveryCompleted(true)
 
-    if (deliveryCompleted) {
-      dispatch(reducer.openPayment())
-      dispatch(reducer.closeDelivery())
-    }
+    dispatch(reducer.openPayment())
+    dispatch(reducer.closeDelivery())
   }
 
   const backToDelivery = () => {
@@ -153,6 +155,16 @@ const Cart = () => {
   const backToCart = () => {
     dispatch(reducer.openItems())
     dispatch(reducer.closeDelivery())
+  }
+
+  const closeCart = () => {
+    dispatch(reducer.close())
+
+    if (successState) {
+      dispatch(reducer.closeSuccess())
+      form.resetForm()
+      reset()
+    }
   }
 
   useEffect(() => {
@@ -299,8 +311,12 @@ const Cart = () => {
               />
             </S.InputGroup>
           </div>
-          <Button onClick={goToPayment}>Continuar com pagamento</Button>
-          <Button onClick={backToCart}>Voltar para o carrinho</Button>
+          <Button type="button" onClick={goToPayment}>
+            Continuar com pagamento
+          </Button>
+          <Button type="button" onClick={backToCart}>
+            Voltar para o carrinho
+          </Button>
         </form>
       </S.Aside>
       <S.Aside open={paymantState}>
@@ -381,7 +397,7 @@ const Cart = () => {
           <Button type="submit" onClick={() => form.handleSubmit}>
             Finalizar pagamento
           </Button>
-          <Button onClick={backToDelivery}>
+          <Button type="button" onClick={backToDelivery}>
             Voltar para edição do endereço
           </Button>
         </form>
@@ -404,7 +420,7 @@ const Cart = () => {
           Esperamos que desfrute de uma deliciosa e agradável experiência
           gastronômica. Bom apetite!
         </S.P>
-        <Button onClick={() => dispatch(reducer.close())}>Concluir</Button>
+        <Button onClick={closeCart}>Concluir</Button>
       </S.Aside>
     </S.CartContainer>
   )

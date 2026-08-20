@@ -6,7 +6,8 @@ import {
   open,
   openItems,
   closeDelivery,
-  closePayment
+  closePayment,
+  closeSuccess
 } from '../../Store/Reducers/cart'
 import { parseToBrl } from '../../Utils'
 
@@ -48,6 +49,7 @@ const Dishe = ({ description, name, img, portion, price, id }: Props) => {
     dispatch(openItems())
     dispatch(closeDelivery())
     dispatch(closePayment())
+    dispatch(closeSuccess())
     setModal({
       isVisible: false,
       img: '',
